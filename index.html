@@ -26,11 +26,8 @@
   <script>
     // Inicialização do cliente Supabase (adicione sua URL e chave abaixo)
     const supabaseUrl = "https://oiwhhumfobnpnwxzdtaa.supabase.co";  // Coloque sua URL real aqui
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pd2hodW1mb2JucG53eHpkdGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MTM2MTQsImV4cCI6MjA2NzQ4OTYxNH0.H24RF9v5zHOddlXtU_kU_SEuV7xpcZEe_lQZRhLzvFM";                 // Coloque sua anon key aqui
-   const { createClient } = window.supabase;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pd2hodW1mb2JucG53eHpkdGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MTM2MTQsImV4cCI6MjA2NzQ4OTYxNH0.H24RF9v5zHOddlXtU_kU_SEuV7xpcZEe_lQZRhLzvFM";  // Coloque sua anon key aqui
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     const cotasContainer = document.getElementById("cotas");
     const TOTAL_COTAS = 150;
