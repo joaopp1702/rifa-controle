@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Rifa do Jão</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      color: #f9b234;
+      text-align: center;
+    }
+    .cota {
+      background: #222;
+      border: 1px solid #444;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    .cota.paga {
+      background: #600;
+      border-color: #a00;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔒 Admin - Confirmar Pagamentos</h1>
+  <div id="lista"></div>
+
+  <!-- Firebase SDK compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAtB6H1PnAjM64GWyuo9PfI6iubJfH7YgE",
+      authDomain: "rifa-d7eb9.firebaseapp.com",
+      databaseURL: "https://rifa-d7eb9-default-rtdb.firebaseio.com",
+      projectId: "rifa-d7eb9",
+      storageBucket: "rifa-d7eb9.firebasestorage.app",
+      messagingSenderId: "1073573581341",
+      appId: "1:1073573581341:web:0cc0a60ac34ac3c0de6cf4",
+      measurementId: "G-ZLP1NR8603"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const lista = document.getElementById("lista");
+
+    function carregarCotas() {
+      db.ref("cotas").once("value").then(snapshot => {
+        const cotas = snapshot.val() || {};
+        lista.innerHTML = "";
+
+        Object.keys(cotas).forEach(num => {
+          const item = cotas[num];
+          const div = document.createElement("div");
+          div.classList.add("cota");
+          if (item.status === "pago") {
+            div.classList.add("paga");
+          }
+
+          div.innerHTML = `
+            <strong>Cota:</strong> ${num}<br>
+            <strong>Nome:</strong> ${item.nome || "?"}<br>
+            <strong>WhatsApp:</strong> ${item.whatsapp || "?"}<br>
+            <strong>Status:</strong> ${item.status}
+            ${item.status === "reservada" ? `<button onclick="marcarComoPago(${num})">Marcar como Pago</button>` : ""}
+          `;
+
+          lista.appendChild(div);
+        });
+      });
+    }
+
+    function marcarComoPago(numero) {
+      db.ref("cotas/" + numero + "/status").set("pago").then(() => {
+        alert(`Cota ${numero} marcada como paga!`);
+        carregarCotas();
+      });
+    }
+
+    carregarCotas();
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+body {
+  font-family: 'Cinzel', serif;
+  margin: 0;
+  padding: 0;
+  background: url('fundo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #000000;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #f9b234;
+  margin-bottom: 10px;
+}
+
+.descricao {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.premio-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  color: #f9b234;
+  margin-bottom: 10px;
+}
+
+.cotas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cotas div {
+  background: #222;
+  border: 2px solid #555;
+  padding: 10px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+.cotas div:hover {
+  background: #333;
+  border-color: #f9b234;
+}
+
+.cotas .selecionada {
+  background: #f9b234;
+  color: #000;
+  border-color: #f9b234;
+}
+
+.cotas .paga {
+  background: #b30000;
+  color: #fff;
+  cursor: not-allowed;
+  border-color: #900;
+}
+
+.cotas .ocupada {
+  background: #666;
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+button {
+  background: linear-gradient(90deg, #f9b234, #d88b00);
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.container p {
+  color: #f9b234;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  resize: none;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#pixArea img {
+  margin-top: 10px;
+  max-width: 200px;
+}

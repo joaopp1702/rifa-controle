@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagamento da Rifa - Jão</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Pagamento da Rifa</h1>
+    <p>Obrigado por reservar suas cotas! Confira abaixo:</p>
+
+    <div id="info"></div>
+
+    <h2>Pagamento via Pix:</h2>
+    <div id="pixArea" style="margin: 20px 0;"></div>
+
+    <p>Envie o comprovante de pagamento pelo WhatsApp para confirmar sua participação.</p>
+    <button onclick="enviarComprovante()">Enviar Comprovante</button>
+  </div>
+
+  <!-- Lib de QR Code Pix -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-pix@1.1.0/dist/index.min.js"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const nome = params.get("nome");
+    const telefone = params.get("telefone");
+    const cotas = params.get("cotas");
+    const valorTotal = cotas ? cotas.split(",").length * 2 : 0;
+
+    const infoDiv = document.getElementById("info");
+    if (nome && telefone && cotas) {
+      infoDiv.innerHTML = `
+        <p><strong>Nome:</strong> ${nome}</p>
+        <p><strong>WhatsApp:</strong> ${telefone}</p>
+        <p><strong>Cotas reservadas:</strong> ${cotas}</p>
+        <p><strong>Total:</strong> R$${valorTotal},00</p>
+      `;
+    } else {
+      infoDiv.textContent = "Dados incompletos. Volte para a página inicial.";
+    }
+
+    // Gerar Pix Copia e Cola
+    const Pix = window['qrcode-pix'];
+    Pix({
+      version: '01',
+      key: 'vlogsjtv5@gmail.com', // Sua chave Pix
+      name: 'João Vendedor',
+      city: 'RIO',
+      message: `Rifa ${cotas}`,
+      value: valorTotal
+    }).then(payload => {
+      document.getElementById("pixArea").innerHTML = `
+        <p><strong>Pix Copia e Cola:</strong></p>
+        <textarea readonly style="width:100%;height:80px;">${payload.payload}</textarea>
+        <br/>
+        <img src="${payload.qrcode}" alt="QR Code Pix" style="margin-top:10px;max-width:200px;">
+      `;
+    });
+
+    function enviarComprovante() {
+      const mensagem = `Olá! Fiz o pagamento da rifa com os seguintes dados:\n\nNome: ${nome}\nWhatsApp: ${telefone}\nCotas: ${cotas}\nValor: R$${valorTotal},00\n\nSegue o comprovante.`;
+      const seuNumero = "5521969880437";
+      const url = `https://wa.me/${seuNumero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
